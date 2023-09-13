@@ -4,14 +4,14 @@ const { executeQueryString } = require('../../Database/QueryandSP')
 
 
 module.exports.Author = { // get author by id
-    type: new GraphQLList(AuthorType),
+    type: AuthorType,
     args: {
         AuthorId: {
             type: GraphQLInt
         }
     },
-    resolve(parent, args) {
-        const result = executeQueryString(`select * from Author where AuthorId = ${args.AuthorId}`)
+    async resolve(parent, args) {
+        const result = await executeQueryString(`select * from Author where AuthorId = ${args.AuthorId}`)
         return result[0]
     }
 }
